@@ -3,7 +3,7 @@ const jwt = require("jsonwebtoken");
 const [, , option, secret, nameOrToken] = process.argv;
 
 if (!option || !secret || !nameOrToken) {
-  return console.log("Missing arguments");
+  return console.log("Missing arguments"); // eslint-disable-line
 }
 
 function signToken(payload, secret) {
