@@ -8,6 +8,7 @@ class UsersService {
   }
 
   async getUser({ email }) {
+    //Get the user connecting to the mongo database
     const [user] = await this.mongoDB.getAll(this.collection, { email });
     return user;
   }
@@ -15,7 +16,7 @@ class UsersService {
   async createUser({ user }) {
     const { name, email, password } = user;
     const hashedPassword = await bcrypt.hash(password, 10);
-
+    //Creates an user and returns the userId for reference.
     const createUserId = await this.mongoDB.create(this.collection, {
       name,
       email,
