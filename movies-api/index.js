@@ -3,6 +3,8 @@ const express = require('express');
 const app = express();
 const { config } = require('./config/index');
 const moviesApi = require('./routes/movies.js');
+const userMoviesApi = require('./routes/userMovies');
+
 const toUpperCase = require('./middlewares/toUppercase');
 // const toLowerCase = require('./middlewares/toLowerCase');
 
@@ -19,6 +21,7 @@ app.use(express.json());
 app.use(toUpperCase);
 
 moviesApi(app);
+userMoviesApi(app);
 
 // app.use(logResponseBody);
 
