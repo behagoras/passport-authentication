@@ -1,4 +1,5 @@
 // set DEBUG=app:* && node scripts/mongo/seedUsers.js
+// eslint-disable
 
 const bcrypt = require('bcryptjs');
 const chalk = require('chalk');
@@ -11,18 +12,18 @@ const users = [
     email: 'root@undefined.sh',
     name: 'ROOT',
     password: config.defaultAdminPassword,
-    isAdmin: true
+    isAdmin: true,
   },
   {
     email: 'jose@undefined.sh',
     name: 'Jose Maria',
-    password: config.defaultUserPassword
+    password: config.defaultUserPassword,
   },
   {
     email: 'maria@undefined.sh',
     name: 'Maria Jose',
-    password: config.defaultUserPassword
-  }
+    password: config.defaultUserPassword,
+  },
 ];
 
 async function createUser(mongoDB, user) {
@@ -33,17 +34,18 @@ async function createUser(mongoDB, user) {
     name,
     email,
     password: hashedPassword,
-    isAdmin: Boolean(isAdmin)
+    isAdmin: Boolean(isAdmin),
   });
 
   return userId;
 }
 
+// eslint-disable-next-line consistent-return
 async function seedUsers() {
   try {
     const mongoDB = new MongoLib();
 
-    const promises = users.map(async user => {
+    const promises = users.map(async (user) => {
       const userId = await createUser(mongoDB, user);
       debug(chalk.green('User created with id:', userId));
     });

@@ -14,7 +14,7 @@ const adminScopes = [
   'delete:movies',
   'read:user-movies',
   'create:user-movies',
-  'delete:user-movies'
+  'delete:user-movies',
 ];
 
 const publicScopes = [
@@ -23,18 +23,7 @@ const publicScopes = [
   'read:movies',
   'read:user-movies',
   'create:user-movies',
-  'delete:user-movies'
-];
-
-const apiKeys = [
-  {
-    token: generateRandomToken(),
-    scopes: adminScopes
-  },
-  {
-    token: generateRandomToken(),
-    scopes: publicScopes
-  }
+  'delete:user-movies',
 ];
 
 function generateRandomToken() {
@@ -42,17 +31,29 @@ function generateRandomToken() {
   return buffer.toString('hex');
 }
 
+const apiKeys = [
+  {
+    token: generateRandomToken(),
+    scopes: adminScopes,
+  },
+  {
+    token: generateRandomToken(),
+    scopes: publicScopes,
+  },
+];
+
+// eslint-disable-next-line consistent-return
 async function seedApiKeys() {
   try {
     const mongoDB = new MongoLib();
 
-    const promises = apiKeys.map(async apiKey => {
+    const promises = apiKeys.map(async (apiKey) => {
       await mongoDB.create('api-keys', apiKey);
     });
 
     await Promise.all(promises);
     debug(
-      chalk.green(`${promises.length} api-keys have been generated succesfully`)
+      chalk.green(`${promises.length} api-keys have been generated succesfully`),
     );
     return process.exit(0);
   } catch (error) {

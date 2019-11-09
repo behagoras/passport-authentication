@@ -4,8 +4,9 @@ const app = express();
 const { config } = require('./config/index');
 const moviesApi = require('./routes/movies.js');
 const userMoviesApi = require('./routes/userMovies');
+const authApi = require('./routes/auth');
 
-const toUpperCase = require('./middlewares/toUppercase');
+// const toUpperCase = require('./middlewares/toUppercase');
 // const toLowerCase = require('./middlewares/toLowerCase');
 
 // app.get('/year/:year2', (req, res) => {
@@ -18,8 +19,9 @@ const toUpperCase = require('./middlewares/toUppercase');
 // });
 
 app.use(express.json());
-app.use(toUpperCase);
+// app.use(toUpperCase);
 
+authApi(app);
 moviesApi(app);
 userMoviesApi(app);
 

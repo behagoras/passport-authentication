@@ -3,7 +3,7 @@ const MongoLib = require('../lib/mongo');
 class UserMoviesService {
   constructor() {
     this.collection = 'user-movies';
-    this.mongoDB = MongoLib();
+    this.mongoDB = new MongoLib();
   }
 
   async getUserMovies({ userId }) {
